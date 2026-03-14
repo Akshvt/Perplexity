@@ -8,6 +8,6 @@ const model = new ChatGoogleGenerativeAI({
 export async function testAi() {
     model.invoke("What is AI explain under 100 words?")
         .then((response) => {
-            console.log(response.content);
+            console.log(response.text);
         })
 }
