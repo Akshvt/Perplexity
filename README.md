@@ -1,32 +1,43 @@
-Data Modelling- Creating visual, structure blueprints of info of how ata is stored in DB
+# Perplexity Clone Backend
 
-Features:
--Authentication system 
-  >Email verifiction
--Chat with AI
--Chat History
--Message Storage
--AI with Internet research feature
+This is the backend service for a Perplexity clone, providing an AI-powered chat interface with internet research capabilities.
 
+## Features
+- **Authentication System** with email verification (JWT & bcrypt)
+- **Chat with AI** powered by Google GenAI (Langchain)
+- **Internet Research Feature** integrated with the AI
+- **Chat History & Message Storage** via MongoDB
 
-User Data:
-_id
-username
-email 
-password
-verified [ No (default) / Yes ] --email link verification
-createdAt
-updatedAt
+## Tech Stack
+- Express.js
+- Node.js
+- Mongoose (MongoDB)
+- LangChain Google GenAI
+- JWT Authentication
+- Nodemailer
 
-Chat Model:
--id
-user
-title
-createdAt
-updatedAt
+## Data Models
 
-Message:
-_id
-chat
-content
-role : [user, ai]
+### User
+- `_id`, `username`, `email`, `password`
+- `verified` (Email link verification)
+- `createdAt`, `updatedAt`
+
+### Chat Model
+- `_id`, `user`, `title`
+- `createdAt`, `updatedAt`
+
+### Message
+- `_id`, `chat`, `content`
+- `role`: [user, ai]
+
+## Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
