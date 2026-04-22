@@ -1,9 +1,9 @@
-import { Server } from "socket.io"
+import { Server } from "socket.io";
+
 
 let io;
 
-
-export function initSocket(httpServer){
+export function initSocket(httpServer) {
     io = new Server(httpServer, {
         cors: {
             origin: "http://localhost:5173",
@@ -11,8 +11,17 @@ export function initSocket(httpServer){
         }
     })
 
+    console.log("Socket.io server is RUNNING")
 
-    io.on("connection", (socket)=>{
-        console.log("A user connected: " +socket.id) //unique user id that changes everytime a new connection is created
+    io.on("connection", (socket) => {
+        console.log("A user connected: " + socket.id)
     })
+}
+
+export function getIO() {
+    if (!io) {
+        throw new Error("Socket.io not initialized")
+    }
+
+    return io
 }
