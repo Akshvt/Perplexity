@@ -1,0 +1,14 @@
+{
+  "name": "qrux",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QRUX — AI-powered search engine",
+  "scripts": {
+    "install:all": "npm install --prefix Backend && npm install --prefix Frontend",
+    "build:frontend": "npm run build --prefix Frontend",
+    "copy:dist": "node scripts/copy-dist.mjs",
+    "build": "npm run build:frontend && npm run copy:dist",
+    "dev:frontend": "npm run dev --prefix Frontend",
+    "dev:backend": "cd Backend && node dev.js"
+  }
+}

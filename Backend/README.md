@@ -41,3 +41,6 @@ This is the backend service for a Perplexity clone, providing an AI-powered chat
    ```bash
    npm run dev
    ```
+
+BASE_URL=https://your-backend.vercel.app
+FRONTEND_URL=https://your-frontend.vercel.app

@@ -14,7 +14,7 @@ export async function register(req, res) {
     const { username, email, password } = req.body;
 
     const isUserAlreadyExists = await userModel.findOne({
-        $or: [ { email }, { username } ]
+        $or: [{ email }, { username }]
     })
 
     if (isUserAlreadyExists) {
@@ -31,16 +31,21 @@ export async function register(req, res) {
         email: user.email,
     }, process.env.JWT_SECRET)
 
+    // Use VERCEL_URL in production, fallback to BASE_URL or localhost
+    const baseUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+
     await sendEmail({
         to: email,
-        subject: "Welcome to Perplexity!",
+        subject: "Welcome to QRUX!",
         html: `
                 <p>Hi ${username},</p>
-                <p>Thank you for registering at <strong>Perplexity</strong>. We're excited to have you on board!</p>
+                <p>Thank you for registering at <strong>QRUX</strong>. We're excited to have you on board!</p>
                 <p>Please verify your email address by clicking the link below:</p>
-                <a href="http://localhost:3000/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
+                <a href="${baseUrl}/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
                 <p>If you did not create an account, please ignore this email.</p>
-                <p>Best regards,<br>The Perplexity Team</p>
+                <p>Best regards,<br>The QRUX Team</p>
         `
     })
 
@@ -100,7 +105,14 @@ export async function login(req, res) {
         username: user.username,
     }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-    res.cookie("token", token)
+    const isProduction = process.env.NODE_ENV === "production";
+
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    })
 
     res.status(200).json({
         message: "Login successful",
@@ -152,9 +164,7 @@ export async function verifyEmail(req, res) {
 
     try {
 
-
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
 
         const user = await userModel.findOne({ email: decoded.email });
 
@@ -170,11 +180,16 @@ export async function verifyEmail(req, res) {
 
         await user.save();
 
+        // Same origin — use relative path or VERCEL_URL
+        const frontendUrl = process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : process.env.FRONTEND_URL || 'http://localhost:5173';
+
         const html =
             `
         <h1>Email Verified Successfully!</h1>
         <p>Your email has been verified. You can now log in to your account.</p>
-        <a href="http://localhost:3000/login">Go to Login</a>
+        <a href="${frontendUrl}/login">Go to Login</a>
     `
 
         return res.send(html);
@@ -185,4 +200,24 @@ export async function verifyEmail(req, res) {
             err: err.message
         })
     }
+}
+
+
+/**
+ * @desc Logout user and clear JWT cookie
+ * @route POST /api/auth/logout
+ * @access Private
+ */
+export async function logout(req, res) {
+    const isProduction = process.env.NODE_ENV === "production";
+
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+    });
+    res.status(200).json({
+        message: "Logged out successfully",
+        success: true,
+    });
 }

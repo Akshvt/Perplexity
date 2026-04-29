@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "installCommand": "npm install --legacy-peer-deps --prefix Backend && npm install --prefix Frontend",
+  "buildCommand": "npm run build --prefix Frontend && node scripts/copy-dist.mjs",
+  "outputDirectory": "Backend/public",
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 60,
+      "includeFiles": "Backend/src/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

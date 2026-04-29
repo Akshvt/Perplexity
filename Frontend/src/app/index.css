@@ -1,5 +1,312 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════
+   QRUX — Neo Brutalist Design System
+   ═══════════════════════════════════════════ */
+
+/* ── Light Mode (Default) ── */
+:root {
+  --bg: #F5F0E8;
+  --surface: #FAFAF5;
+  --surface-alt: #FFFFFF;
+  --border: #0D0D0D;
+  --text: #0D0D0D;
+  --text-muted: #555555;
+  --accent: #FFE600;
+  --accent-hover: #D4BF00;
+  --shadow: #0D0D0D;
+  --danger: #FF3B3B;
+  --link: #1A1AFF;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 0px;
+  --border-w: 2px;
+  --shadow-offset: 4px 4px 0px;
+  --shadow-hover: 6px 6px 0px;
+  --shadow-active: 1px 1px 0px;
+}
+
+/* ── Dark Mode ("Neon Void") ── */
+[data-theme="dark"] {
+  --bg: #0A0A0A;
+  --surface: #141414;
+  --surface-alt: #1A1A1A;
+  --border: #333333;
+  --text: #E8E8E8;
+  --text-muted: #777777;
+  --accent: #FFE600;
+  --accent-hover: #FFF033;
+  --shadow: #FFE600;
+  --danger: #FF3B3B;
+  --link: #FFE600;
+}
+
+/* ── Global Resets ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: var(--radius) !important;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 150ms linear, color 150ms linear;
+}
+
+/* ── Scrollbar Hide ── */
 .messages::-webkit-scrollbar {
-    display: none;
+  display: none;
+}
+.messages {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ═══════════════════════════════════════════
+   BRUTALIST COMPONENT CLASSES
+   ═══════════════════════════════════════════ */
+
+/* ── Card ── */
+.brutal-card {
+  background: var(--surface);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow);
+  padding: 24px;
+  transition: box-shadow 60ms linear, transform 60ms linear;
+}
+.brutal-card:hover {
+  box-shadow: var(--shadow-hover) var(--shadow);
+  transform: translate(-2px, -2px);
+}
+
+/* ── Button: Primary (Yellow CTA) ── */
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0D0D0D;
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: box-shadow 60ms linear, transform 60ms linear;
+  text-decoration: none;
+}
+.brutal-btn:hover {
+  box-shadow: var(--shadow-hover) var(--shadow);
+  transform: translate(-2px, -2px);
+  background: var(--accent-hover);
+}
+.brutal-btn:active {
+  box-shadow: var(--shadow-active) var(--shadow);
+  transform: translate(2px, 2px);
+}
+.brutal-btn:disabled {
+  background: #CCC;
+  border-color: #888;
+  box-shadow: none;
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* ── Button: Ghost ── */
+.brutal-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: box-shadow 60ms linear, transform 60ms linear, background 60ms linear;
+  text-decoration: none;
+}
+.brutal-btn-ghost:hover {
+  background: var(--accent);
+  color: #0D0D0D;
+  box-shadow: var(--shadow-hover) var(--shadow);
+  transform: translate(-2px, -2px);
+}
+.brutal-btn-ghost:active {
+  box-shadow: var(--shadow-active) var(--shadow);
+  transform: translate(2px, 2px);
+}
+
+/* ── Button: Danger ── */
+.brutal-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--danger);
+  color: #FFFFFF;
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: box-shadow 60ms linear, transform 60ms linear;
+}
+.brutal-btn-danger:hover {
+  box-shadow: var(--shadow-hover) var(--shadow);
+  transform: translate(-2px, -2px);
+}
+
+/* ── Input ── */
+.brutal-input {
+  width: 100%;
+  height: 48px;
+  background: var(--surface-alt);
+  border: var(--border-w) solid var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 0 16px;
+  outline: none;
+  transition: border-color 60ms linear;
+}
+.brutal-input:focus {
+  border-color: var(--link);
+}
+.brutal-input::placeholder {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Search Input (Large) ── */
+.brutal-input-lg {
+  height: 64px;
+  font-size: 16px;
+  padding: 0 20px;
+}
+
+/* ── Tag / Label ── */
+.brutal-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #0D0D0D;
+  border: var(--border-w) solid var(--border);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+}
+
+/* ── Chip ── */
+.brutal-chip {
+  display: inline-block;
+  background: var(--surface-alt);
+  color: var(--text);
+  border: var(--border-w) solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 60ms linear, color 60ms linear;
+}
+.brutal-chip:hover {
+  background: var(--accent);
+  color: #0D0D0D;
+}
+
+/* ── Theme Toggle Switch ── */
+.theme-toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: var(--surface-alt);
+  border: var(--border-w) solid var(--border);
+  cursor: pointer;
+  transition: background 60ms linear;
+}
+.theme-toggle[data-active="true"] {
+  background: var(--accent);
+}
+.theme-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--border);
+  transition: transform 60ms linear;
+}
+.theme-toggle[data-active="true"] .theme-toggle-knob {
+  transform: translateX(24px);
+}
+
+/* ── Code Block ── */
+.brutal-code {
+  background: #0D0D0D;
+  color: #E8E8E8;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* ── Skeleton Loading ── */
+@keyframes brutal-shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+.brutal-skeleton {
+  height: 2px;
+  background: linear-gradient(90deg, var(--border) 25%, var(--accent) 50%, var(--border) 75%);
+  background-size: 400px 100%;
+  animation: brutal-shimmer 1.2s linear infinite;
+  margin-bottom: 16px;
+}
+
+/* ── Typography Helpers ── */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* ── Link Style ── */
+a.brutal-link {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 60ms linear;
+}
+a.brutal-link:hover {
+  color: var(--accent);
 }
