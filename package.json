@@ -2,6 +2,9 @@
   "name": "qrux",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "description": "QRUX — AI-powered search engine",
   "scripts": {
     "install:all": "npm install --prefix Backend && npm install --prefix Frontend",
