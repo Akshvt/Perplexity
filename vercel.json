@@ -1,7 +1,7 @@
 {
   "version": 2,
   "installCommand": "cd Backend && npm install --legacy-peer-deps && cd ../Frontend && npm install",
-  "buildCommand": "cd Frontend && npm run build && cd .. && node scripts/copy-dist.mjs",
+  "buildCommand": "cd Frontend && NODE_PATH=$PWD/node_modules npm run build && cd .. && node scripts/copy-dist.mjs",
   "outputDirectory": "Backend/public",
   "functions": {
     "api/index.js": {
