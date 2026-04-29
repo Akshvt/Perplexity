@@ -4,6 +4,9 @@ AGENTS.md
 GEMINI.md
 setup-crg.ps1
 
+# AI tooling
+.claude/
+
 # Node
 node_modules/
 dist/
