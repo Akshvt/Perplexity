@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "installCommand": "npm install --legacy-peer-deps --prefix Backend && npm install --prefix Frontend",
-  "buildCommand": "npm run build --prefix Frontend && node scripts/copy-dist.mjs",
+  "installCommand": "cd Backend && npm install --legacy-peer-deps && cd ../Frontend && npm install",
+  "buildCommand": "cd Frontend && npm run build && cd .. && node scripts/copy-dist.mjs",
   "outputDirectory": "Backend/public",
   "functions": {
     "api/index.js": {
